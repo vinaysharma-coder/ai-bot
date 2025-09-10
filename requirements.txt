@@ -1,8 +1,8 @@
 Flask
 flask-cors
+gunicorn
 PyPDF2
 pdf2image
 pytesseract
 googletrans==4.0.0-rc1
 reportlab
-gunicorn
