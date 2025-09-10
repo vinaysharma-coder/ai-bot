@@ -4,5 +4,5 @@ gunicorn
 PyPDF2
 pdf2image
 pytesseract
-googletrans==4.0.0-rc1
+deep-translator
 reportlab
