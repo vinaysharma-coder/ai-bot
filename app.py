@@ -6,9 +6,9 @@ from werkzeug.utils import secure_filename
 from PyPDF2 import PdfReader
 from pdf2image import convert_from_path
 import pytesseract
-from deep_translator import GoogleTranslator
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
+from deep_translator import GoogleTranslator   # 👈 more reliable than googletrans
 
 app = Flask(__name__)
 CORS(app)
@@ -23,8 +23,8 @@ def extract_text_from_pdf(pdf_path):
         for page in pdf.pages:
             if page.extract_text():
                 text += page.extract_text() + "\n"
-    except Exception as e:
-        print("PDF extraction error:", e)
+    except:
+        pass
     return text
 
 def ocr_from_scanned_pdf(pdf_path):
@@ -71,11 +71,11 @@ def upload_file():
     if not extracted_text.strip():
         return jsonify({'error': 'Could not extract text'}), 500
 
-    # 🔥 Use deep-translator instead of googletrans
+    # ✅ Use deep-translator instead of googletrans
     try:
         translated = GoogleTranslator(source="auto", target=target_lang).translate(extracted_text)
     except Exception as e:
-        return jsonify({'error': f'Translation failed: {e}'}), 500
+        return jsonify({'error': f'Translation failed: {str(e)}'}), 500
 
     if download_pdf:
         pdf_buffer = create_pdf_from_text(translated, "translated.pdf")
