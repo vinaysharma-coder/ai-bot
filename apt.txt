@@ -9,3 +9,6 @@ tesseract-ocr-guj
 tesseract-ocr-mar
 tesseract-ocr-ori
 tesseract-ocr-panj
+
+
+add apt.txt to install tesseract, poppler and language packs on Render
